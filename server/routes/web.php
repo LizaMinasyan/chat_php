@@ -77,10 +77,10 @@ if($action == "register") {
     echo get_friends_list();
 
 }else if($action == "addMessages") {
-    echo addMessages($_POST['inp_msg'], $_POST['to_id']);
+    addMessages($_POST['inp_msg'], $_POST['to_id']);
 
 }else if($action == "getMessages") {
-    echo get_messages_list();
+    echo get_messages_list($_GET['user_to_id']);
 }
 
 

@@ -36,9 +36,9 @@ $conn = db_connect("chat");
 </div>
 
 
-<div class="container mt-2">
-    <h1>Notification list</h1>
-</div>
+<!--<div class="">-->
+<!--    <h2>Notification list</h2>-->
+<!--</div>-->
 
 
 

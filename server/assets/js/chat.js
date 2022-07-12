@@ -65,10 +65,11 @@ jQuery(document).ready(function($) {
         }
     });
     function  getReqMsg() {
+        let user_to_id=$("#toUserId").val();
         $.ajax({
             url: "http://chat.loc/server/routes/web.php",
             method: "get",
-            data: {action: "getMessages"},
+            data: {action: "getMessages",user_to_id},
             success: function (response) {
                 response = JSON.parse(response)
                 console.log(response);
@@ -76,4 +77,5 @@ jQuery(document).ready(function($) {
             }
         });
     }
+    getReqMsg()
 })

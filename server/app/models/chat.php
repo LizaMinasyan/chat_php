@@ -11,14 +11,20 @@ function addMessages($inp_msg, $to_id){
     return "ok";
 }
 
-function get_messages_list(){
+function get_messages_list($to_user_id){
     global $conn;
     $user_id = $_SESSION['user']['id'];
-    $sql_msg = "SELECT users_table.id, users_table.first_name, users_table.last_name, messages.created_at, users_table.avatar, messages.context  FROM messages_list
+    $sql_msg = "SELECT users_table.id, users_table.first_name, users_table.last_name, messages.created_at,
+ users_table.avatar, messages.context  FROM messages_list
     INNER JOIN users_table ON messages_list.from_id = users_table.id
     INNER JOIN messages ON messages_list.msg_id = messages.id
-    WHERE messages_list.to_id = $user_id  OR messages_list.from_id = $user_id ORDER BY messages.created_at ASC";
+    WHERE (messages_list.from_id = $user_id AND messages_list.to_id = $to_user_id) OR 
+          (messages_list.from_id = $to_user_id AND messages_list.to_id = $user_id) 
+          ORDER BY messages.created_at ASC";
     $result = mysqli_query($conn, $sql_msg);
     $getMessageList = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    return json_encode($getMessageList);
+    if(count($getMessageList) > 0) {
+        return json_encode($getMessageList);
+    }
+    return json_encode([]); //vor amen meki id ira hamar chanachi u mnacaci msgnery chga
 }
